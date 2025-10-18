@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BCL" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="11452d53-0f78-4547-85a6-764a6e2f6372">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="335"/>
+	<parameter name="pan" class="java.lang.String"/>
+	<parameter name="tan" class="java.lang.String"/>
+	<parameter name="gstin" class="java.lang.String"/>
+	<parameter name="cin" class="java.lang.String"/>
+	<parameter name="fromParty" class="java.lang.String"/>
+	<parameter name="toParty" class="java.lang.String"/>
+	<parameter name="fromPartyAddress" class="java.lang.String"/>
+	<parameter name="toPartyAddress" class="java.lang.String"/>
+	<parameter name="startDate" class="java.lang.String"/>
+	<parameter name="endDate" class="java.lang.String"/>
+	<parameter name="partyPan" class="java.lang.String"/>
+	<parameter name="partyTan" class="java.lang.String"/>
+	<parameter name="subject" class="java.lang.String"/>
+	<parameter name="content1DearSirMadam" class="java.lang.String"/>
+	<parameter name="content2youraccount" class="java.lang.String"/>
+	<parameter name="content3ClosingBalance" class="java.lang.String"/>
+	<parameter name="content4" class="java.lang.String"/>
+	<parameter name="content5" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="58" splitType="Stretch">
+			<textField>
+				<reportElement x="442" y="0" width="100" height="13" uuid="2aacabcb-fbcb-43f3-97e1-30fb3c3bc1ce"/>
+				<textFieldExpression><![CDATA[$P{pan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="14" width="100" height="13" uuid="e6d04e99-1324-44ac-9b7b-dca8b3279407"/>
+				<textFieldExpression><![CDATA[$P{tan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="29" width="100" height="13" uuid="4cffef46-00c0-454a-9ff3-2fbdf32083e3"/>
+				<textFieldExpression><![CDATA[$P{gstin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="42" width="100" height="13" uuid="f2037e2c-c489-4a94-b292-54b8e96df3d9"/>
+				<textFieldExpression><![CDATA[$P{cin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="0" width="52" height="13" uuid="0f607f16-2874-458a-a8b3-ffff7446ed42"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="14" width="52" height="13" uuid="fac61f3d-9faf-42fc-aa18-1dcca9cc2b5c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TAN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="28" width="52" height="13" uuid="5d3f7ea8-c443-4ec6-a19d-8f5eecf0c257"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GSTIN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="42" width="52" height="13" uuid="57f09c38-c53d-411a-82f3-c77b316d440d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIN NO #]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="57" width="555" height="1" uuid="5e9d5334-0dc9-4856-80a5-ed98cd0e233c"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="112" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="440" y="5" width="100" height="13" uuid="9c095485-6099-4574-8bd5-a1f18a1afc95"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="23" width="100" height="13" uuid="45272365-7a70-41f7-b389-c714ca4fe336"/>
+				<textFieldExpression><![CDATA[$P{partyPan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="37" width="100" height="13" uuid="c360fc43-89d8-47c3-b8aa-e065b41608a4"/>
+				<textFieldExpression><![CDATA[$P{partyTan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="3" width="16" height="20" uuid="f48890ae-75ff-4082-b27f-3237a4c06fd0"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="18" y="24" width="267" height="13" uuid="8ee6bba1-7494-4f6d-a792-1de1f76e51ca"/>
+				<textFieldExpression><![CDATA[$P{toParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="37" width="266" height="54" uuid="0a646399-e76f-4397-bf71-ab2ac5662f27"/>
+				<textFieldExpression><![CDATA[$P{toPartyAddress}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="92" width="46" height="20" uuid="07ad15a7-cae6-4508-9c18-20879b6037d3"/>
+				<textElement>
+					<font isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Subject :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="53" y="92" width="489" height="20" uuid="f2f2d78f-6f7f-4126-b9e5-486c1f0f724c"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subject}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="37" width="52" height="13" uuid="937c4b80-70ee-4030-8e4a-e6e72cc8072b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TAN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="23" width="52" height="13" uuid="834331bd-dc60-4b99-a86c-3610e34c1f88"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAN NO #]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="8" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="186" splitType="Stretch">
+			<textField>
+				<reportElement x="7" y="0" width="166" height="20" uuid="575b5ebc-6cb3-41fb-9b66-60eb310e7d8b"/>
+				<textFieldExpression><![CDATA[$P{content1DearSirMadam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="20" width="535" height="34" uuid="1f4bdb02-3243-41c2-90f9-f68f3e56a1ad"/>
+				<textFieldExpression><![CDATA[$P{content2youraccount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="7" y="54" width="535" height="19" uuid="9f6bf0f4-107e-44c1-89b3-6b61256306ff"/>
+				<textFieldExpression><![CDATA[$P{content3ClosingBalance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="76" width="533" height="32" uuid="61e59848-9606-4793-95d1-54860555e39c"/>
+				<textFieldExpression><![CDATA[$P{content4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="9" y="108" width="142" height="27" uuid="087afdbc-7cc5-4cb5-8817-a2243d469178"/>
+				<text><![CDATA[Thanking You,
+Yours Sincerly]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="138" width="16" height="20" uuid="b6eb8a8c-9ed9-4079-a587-194571027437"/>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="138" width="359" height="20" uuid="6d4664f0-84a4-41ab-91af-0720309e8cda"/>
+				<textFieldExpression><![CDATA[$P{fromParty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="7" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="350" splitType="Stretch">
+			<staticText>
+				<reportElement x="7" y="2" width="248" height="20" uuid="28d90d9c-c78e-4da3-a550-132892e1d393"/>
+				<text><![CDATA[Authorized Signatory]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="30" width="26" height="20" uuid="66ca3a47-817a-4a9f-a2e2-12208ae659b9"/>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="30" width="19" height="20" uuid="509476c8-6227-4e87-8a0a-bffde7e637cf"/>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="60" width="266" height="55" uuid="7dc04a6d-752f-430f-93a5-0b26795e766e"/>
+				<textFieldExpression><![CDATA[$P{toPartyAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="29" y="47" width="267" height="13" uuid="19e45713-0ed6-40f9-aec5-2438c8988188"/>
+				<textFieldExpression><![CDATA[$P{toParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="60" width="215" height="55" uuid="55f75bfe-7385-4a09-ae9e-8e2b351ce7f0"/>
+				<textFieldExpression><![CDATA[$P{fromPartyAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="47" width="216" height="13" uuid="c5d33787-eb04-41cd-93d1-9d30ae763a5e"/>
+				<textFieldExpression><![CDATA[$P{fromParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="5" y="123" width="166" height="20" uuid="2eb69126-8415-467d-8858-d19838459de6"/>
+				<textFieldExpression><![CDATA[$P{content1DearSirMadam}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="29" y="143" width="513" height="84" uuid="2b0e210c-76f9-4400-9fea-61b7c93a8d7e"/>
+				<textFieldExpression><![CDATA[$P{content5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="257" width="16" height="20" uuid="e118bfc8-0d70-48cd-a34c-70b69660d906"/>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="237" width="142" height="17" uuid="da700b2c-3fc3-4448-92b6-e1e4d7ac14b7"/>
+				<text><![CDATA[Yours Sincerly]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="26" y="257" width="359" height="20" uuid="e3a84654-4fb8-4604-8dc6-463de2036c39"/>
+				<textFieldExpression><![CDATA[$P{toParty}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="327" width="142" height="17" uuid="d1f9a03e-31b6-43fe-84f9-f7a2f448b675"/>
+				<text><![CDATA[(Rubber Stamp and Sign)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="26" width="552" height="1" uuid="4a057fb6-9fca-46b8-ac36-eb85cf765677"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

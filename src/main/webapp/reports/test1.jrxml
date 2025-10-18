@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="Trial_Balance"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="535"
+		 columnSpacing="0"
+		 leftMargin="30"
+		 rightMargin="30"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="ADDRESS" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="AcctYear" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="Company" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="ToDate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="FromDate" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="COMPANY_ID" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="closeBal" isForPrompting="true" class="java.lang.Double"/>
+	<parameter name="maxcode" isForPrompting="true" class="java.lang.String"/>
+	<parameter name="mincode" isForPrompting="true" class="java.lang.String"/>
+	<queryString><![CDATA[select cc.code_combination_id,
+                              cc.acct_name,bal.opn_bal
+                              ,case when bal.opn_bal  > '0.00' then bal.opn_bal  
+                                    else bal.opn_bal * (-1) end as openingBal
+                              from gl_code_combination_d cc
+                   inner join gl_balances_f bal on(bal.code_combination_id=cc.code_combination_id)
+                   where 
+                   cc.code_combination_id between $P{mincode} and $P{maxcode}
+                   and  cc.company_id=$P{COMPANY_ID}
+                   order by cc.acct_name,cc.code_combination_id]]></queryString>
+
+	<field name="acct_name" class="java.lang.String"/>
+	<field name="code_combination_id" class="java.lang.String"/>
+	<field name="openingBal" class="java.lang.String"/>
+
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="36"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="127"
+						y="13"
+						width="290"
+						height="20"
+						key="textField-7"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="131"
+						y="2"
+						width="273"
+						height="16"
+						key="textField-8"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{Company}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="1"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="24"  isSplitAllowed="true" >
+				<subreport  isUsingCache="true">
+					<reportElement
+						x="19"
+						y="2"
+						width="474"
+						height="18"
+						key="subreport-2"/>
+					<subreportParameter  name="openingBal">
+						<subreportParameterExpression><![CDATA[$F{openingBal}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="ToDate">
+						<subreportParameterExpression><![CDATA[$P{ToDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="FromDate">
+						<subreportParameterExpression><![CDATA[$P{FromDate}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="acct_name">
+						<subreportParameterExpression><![CDATA[$F{acct_name}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="code_combination_id">
+						<subreportParameterExpression><![CDATA[$F{code_combination_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="AcctYear">
+						<subreportParameterExpression><![CDATA[$P{AcctYear}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="COMPANY_ID">
+						<subreportParameterExpression><![CDATA[$P{COMPANY_ID}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="mincode">
+						<subreportParameterExpression><![CDATA[$P{mincode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter  name="maxcode">
+						<subreportParameterExpression><![CDATA[$P{maxcode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression  class="net.sf.jasperreports.engine.JasperReport"><![CDATA[JasperCompileManager.compileReport("D:/ERP/web/report/ledger_book_subreport0.jrxml")]]></subreportExpression>
+				</subreport>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="4"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="7"  isSplitAllowed="true" >
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="7"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="9"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>

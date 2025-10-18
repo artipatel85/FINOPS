@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BalanceConfirmationLetter" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="fromDate" class="java.lang.String"/>
+	<parameter name="toDate" class="java.lang.String"/>
+	<parameter name="balance" class="java.lang.String"/>
+	<parameter name="panCompany" class="java.lang.String"/>
+	<parameter name="tanCompany" class="java.lang.String"/>
+	<parameter name="staxCompany" class="java.lang.String"/>
+	<parameter name="panParty" class="java.lang.String"/>
+	<parameter name="tanParty" class="java.lang.String"/>
+	<parameter name="staxParty" class="java.lang.String"/>
+	<parameter name="company" class="java.lang.String"/>
+	<parameter name="companyAddress" class="java.lang.String"/>
+	<parameter name="party" class="java.lang.String"/>
+	<parameter name="partyAddress" class="java.lang.String"/>
+	<variable name="MESSAGE1" class="java.lang.String">
+		<initialValueExpression><![CDATA["Your accounts are standing in our Books of Accounts for the Period From : "+$P{fromDate}+" To : "+$P{toDate}]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="802" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="-1" width="555" height="802"/>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="426" y="12" width="51" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="25" width="51" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TAN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="50" width="51" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[S. TAX NO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="50" width="98" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CATAGORY (B.A.S.)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="66" width="553" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="477" y="12" width="77" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{panCompany}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="25" width="77" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tanCompany}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="50" width="75" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{staxCompany}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="19" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField pattern="dd-MMM-yyyy">
+				<reportElement x="426" y="1" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="426" y="27" width="51" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAN NO #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="40" width="51" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TAN NO #]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="477" y="27" width="77" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{panParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="40" width="77" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tanParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="28" width="234" height="43"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{partyAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="14" width="234" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{party}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="553" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="0" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="23" width="93" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Dear Sir / Madam,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="45" y="0" width="220" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Confirmation of Account for the Period From :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="262" y="0" width="77" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="0" width="24" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ To : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="364" y="0" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="40" width="350" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Your accounts are standing in our Books of Accounts for the Period From :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="352" y="40" width="77" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="47" y="13" width="400" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="448" y="40" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="424" y="40" width="24" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[ To : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="56" width="350" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[It is desirable to have your confirmation of balance given below]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="97" width="543" height="30"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Please note if we do not receive your confirmation / reconciliaton with in 15 days of date of this letter, the
+balance as shown will be taken as confirmed.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="73" width="121" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Balance as per our Books]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="125" y="73" width="100" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{balance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="145" width="73" height="26"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Thanking You
+Yours sincerly]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="178" width="27" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="231" width="123" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Authorised Signatory]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="260" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="3" y="282" width="28" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="282" width="28" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="366" width="93" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Dear Sir / Madam,]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="382" width="77" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fromDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="382" width="378" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[With referenc to your request for the balance confirmation for the period From :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="382" width="24" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[ To : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="476" y="382" width="69" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{toDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="400" width="552" height="41"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[We advise as under
+1. The above balance is confirmed
+2. The balance according to our books of accounts is Rs. ........................................... as explained in attached statement.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="440" width="85" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[3. Our Pan No. is]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="440" width="53" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[,Tan No. is]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="440" width="254" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[and S.Tax No. is __________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="468" width="73" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Yours sincerly]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="484" width="27" height="13"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="532" width="123" height="14"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[(Rubber Stamp and Sign)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="324" y="295" width="224" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="295" width="234" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{party}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="309" width="234" height="43"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{partyAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="309" width="219" height="43"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{companyAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="38" y="178" width="224" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="33" y="484" width="234" height="14"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{party}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="88" y="441" width="62" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{panParty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="203" y="441" width="62" height="13"/>
+				<textElement>
+					<font size="8" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tanParty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="11" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="6" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>

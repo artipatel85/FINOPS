@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ageingDetailSalesman" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="companyId" class="java.lang.String"/>
+	<parameter name="salesMan" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT ps.code_combination_id,cc.acct_name,CONVERT(char(10),ps.due_date,120) due_date,
+                trx.sales_by,ps.amount_due_remain,je.je_voucher_no,je.je_source,je.je_source_hdr_id,je.je_hdr_id
+                FROM gl_payment_schedule_f ps
+                LEFT OUTER JOIN gl_je_f je ON (je.je_hdr_id = ps.je_hdr_id AND je.hdr_line_flag = 'H')
+                LEFT OUTER JOIN ar_customer_trx_f trx ON (trx.customer_trx_id =  je.je_source_hdr_id)
+                INNER JOIN gl_code_combination_d cc ON (cc.code_combination_id = ps.code_combination_id)
+                WHERE ps.ref_type NOT IN (4) AND ps.company_id = $P{companyId} AND dr_cr = 'DR'
+                AND amount_due_remain <> 0 AND trx.sales_by = $P{salesMan}]]>
+	</queryString>
+	<field name="code_combination_id" class="java.lang.Integer"/>
+	<field name="acct_name" class="java.lang.String"/>
+	<field name="due_date" class="java.lang.String"/>
+	<field name="sales_by" class="java.lang.String"/>
+	<field name="amount_due_remain" class="java.math.BigDecimal"/>
+	<field name="je_voucher_no" class="java.lang.String"/>
+	<field name="je_source" class="java.lang.String"/>
+	<field name="je_source_hdr_id" class="java.lang.Integer"/>
+	<field name="je_hdr_id" class="java.lang.Integer"/>
+	<variable name="TOTAL_OUTSTANDING" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount_due_remain}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="228" y="2" width="100" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ageing Details]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="57" y="0" width="271" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{salesMan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="57" height="13"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sales By:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="4" width="71" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Voucher No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="197" y="4" width="244" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Party Account]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="4" width="71" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outstanding]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="97" y="4" width="71" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Due Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="3" width="71" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{je_voucher_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="197" y="3" width="244" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{acct_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="3" width="71" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{amount_due_remain}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="97" y="3" width="71" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{due_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="12" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="9" width="71" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_OUTSTANDING}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="26" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

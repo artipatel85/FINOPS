@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProfitSummary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="0" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="blNo" class="java.lang.String"/>
+	<parameter name="jobNo" class="java.lang.String"/>
+	<parameter name="loadingAgent" class="java.lang.String"/>
+	<parameter name="company" class="java.lang.String"/>
+	<parameter name="revExp" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT CONVERT(char(10),trx_date,120) trx_date,trxline.trx_number,
+                SUM(trxline.accounted_amount)trx_total,cc.acct_name description1
+                FROM ar_customer_trx_lines_f trxline
+                INNER JOIN ar_customer_trx_f trx ON (trx.CUSTOMER_TRX_ID = trxline.CUSTOMER_TRX_ID)
+                INNER JOIN gl_code_combination_d cc ON (cc.CODE_COMBINATION_ID = trxline.code_combination_id)
+                WHERE trxline.rev_exp = $P{revExp} AND awb_bl_no LIKE $P{blNo} AND job_number LIKE $P{jobNo}
+                AND trxline.ACCOUNTED_AMOUNT > 0 AND trxline.code_combination_id NOT IN (1025,1064,1187,1538,1539,1540,1541,1546,1567,1668,1108,1109,1922,2795)
+                GROUP BY trx_date,trxline.trx_number,cc.acct_name]]>
+	</queryString>
+	<field name="trx_date" class="java.lang.String"/>
+	<field name="trx_number" class="java.lang.String"/>
+	<field name="trx_total" class="java.math.BigDecimal"/>
+	<field name="description1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="5" width="42" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dated]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="47" y="5" width="42" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="5" width="42" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Heads]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="247" y="5" width="36" height="10"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="1" width="285" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="244" y="4" width="39" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trx_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="3" width="43" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trx_number}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="89" y="3" width="155" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{description1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="285" y="-20" width="1" height="43">
+					<printWhenExpression><![CDATA[$P{revExp}.equals( "REVENUE" )]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="286" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="2" y="3" width="45" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trx_date}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="-18" width="1" height="41">
+					<printWhenExpression><![CDATA[$P{revExp}.equals( "REVENUE" )]]></printWhenExpression>
+				</reportElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="10" splitType="Stretch">
+			<line>
+				<reportElement x="-1" y="1" width="287" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

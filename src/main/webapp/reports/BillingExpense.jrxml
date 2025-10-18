@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="BillingInvoice" language="groovy" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="company" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="panno" class="java.lang.String"/>
+	<parameter name="tanno" class="java.lang.String"/>
+	<parameter name="servicetaxno" class="java.lang.String"/>
+	<parameter name="billto" class="java.lang.String"/>
+	<parameter name="billtoaddress" class="java.lang.String"/>
+	<parameter name="phone" class="java.lang.String"/>
+	<parameter name="fax" class="java.lang.String"/>
+	<parameter name="billtophone" class="java.lang.String"/>
+	<parameter name="billtofax" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="trxno" class="java.lang.String"/>
+	<parameter name="blno" class="java.lang.String"/>
+	<parameter name="bldate" class="java.lang.String"/>
+	<parameter name="containerno" class="java.lang.String"/>
+	<parameter name="pkgs" class="java.lang.Integer"/>
+	<parameter name="weight" class="java.lang.Double"/>
+	<parameter name="description" class="java.lang.String"/>
+	<parameter name="destination" class="java.lang.String"/>
+	<parameter name="sbno" class="java.lang.String"/>
+	<parameter name="trxdate" class="java.lang.String"/>
+	<parameter name="duedate" class="java.lang.String"/>
+	<parameter name="jobno" class="java.lang.String"/>
+	<parameter name="fileno" class="java.lang.String"/>
+	<parameter name="nontaxable" class="java.math.BigDecimal"/>
+	<parameter name="taxable" class="java.math.BigDecimal"/>
+	<parameter name="discount" class="java.math.BigDecimal"/>
+	<parameter name="grandtotal" class="java.math.BigDecimal"/>
+	<parameter name="remarks" class="java.lang.String"/>
+	<parameter name="createdby" class="java.lang.String"/>
+	<parameter name="salesby" class="java.lang.String"/>
+	<parameter name="trxid" class="java.lang.Integer"/>
+	<parameter name="taxhead1" class="java.lang.String"/>
+	<parameter name="taxhead2" class="java.lang.String"/>
+	<parameter name="taxhead3" class="java.lang.String"/>
+	<parameter name="taxhead4" class="java.lang.String"/>
+	<parameter name="taxhead5" class="java.lang.String"/>
+	<parameter name="taxamount1" class="java.math.BigDecimal"/>
+	<parameter name="taxamount2" class="java.math.BigDecimal"/>
+	<parameter name="taxamount3" class="java.math.BigDecimal"/>
+	<parameter name="taxamount4" class="java.math.BigDecimal"/>
+	<parameter name="taxamount5" class="java.math.BigDecimal"/>
+	<parameter name="shpr" class="java.lang.String"/>
+	<parameter name="cnee" class="java.lang.String"/>
+	<parameter name="blNoLabel" class="java.lang.String"/>
+	<parameter name="currencyId" class="java.lang.String"/>
+	<parameter name="currency" class="java.lang.String"/>
+	<parameter name="inwords" class="java.lang.String"/>
+	<parameter name="contlabel" class="java.lang.String"/>
+	<parameter name="bldatelabel" class="java.lang.String"/>
+	<parameter name="invNo" class="java.lang.String"/>
+	<parameter name="tdshead1" class="java.lang.String"/>
+	<parameter name="tdshead2" class="java.lang.String"/>
+	<parameter name="tdshead3" class="java.lang.String"/>
+	<parameter name="tdsamount1" class="java.math.BigDecimal"/>
+	<parameter name="tdsamount2" class="java.math.BigDecimal"/>
+	<parameter name="tdsamount3" class="java.math.BigDecimal"/>
+	<parameter name="totalTds" class="java.math.BigDecimal"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT arl.code_combination_id,arl.code_desc,arl.taxable_1,
+                arl.taxable_2,arl.taxable_3,arl.taxable_4,arl.taxable_5,arl.non_taxable,
+                arl.per_on_tot_val,arl.per_on_val,arl.discount_per,arl.discount_amt,
+                arl.oth_chrgs_per,arl.oth_chrgs_amt,arl.status,
+                arl.entered_amount,arl.remark,arl.template_id,accounted_amount
+                FROM ar_customer_trx_lines_f arl
+                WHERE arl.customer_trx_id =  $P{trxid}
+                AND arl.rev_exp_tax_disc_oc = 'R'
+		AND arl.accounted_amount > 0
+                ORDER BY arl.template_id DESC]]>
+	</queryString>
+	<field name="code_combination_id" class="java.lang.Integer"/>
+	<field name="code_desc" class="java.lang.String"/>
+	<field name="taxable_1" class="java.lang.String"/>
+	<field name="taxable_2" class="java.lang.String"/>
+	<field name="taxable_3" class="java.lang.String"/>
+	<field name="taxable_4" class="java.lang.String"/>
+	<field name="taxable_5" class="java.lang.String"/>
+	<field name="non_taxable" class="java.lang.String"/>
+	<field name="per_on_tot_val" class="java.math.BigDecimal"/>
+	<field name="per_on_val" class="java.math.BigDecimal"/>
+	<field name="discount_per" class="java.math.BigDecimal"/>
+	<field name="discount_amt" class="java.math.BigDecimal"/>
+	<field name="oth_chrgs_per" class="java.math.BigDecimal"/>
+	<field name="oth_chrgs_amt" class="java.math.BigDecimal"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="entered_amount" class="java.math.BigDecimal"/>
+	<field name="remark" class="java.lang.String"/>
+	<field name="template_id" class="java.lang.Integer"/>
+	<field name="accounted_amount" class="java.math.BigDecimal"/>
+	<variable name="TOTAL_REVENUE" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$P{nontaxable}.plus($P{taxable})]]></variableExpression>
+	</variable>
+	<background>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-1" y="1" width="557" height="801"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</rectangle>
+			<line>
+				<reportElement x="-1" y="150" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="164" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="178" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="206" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="192" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="220" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="262" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="248" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="276" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="290" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="234" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="318" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="346" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="304" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="332" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="369" y="132" width="1" height="506" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-1" y="360" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="374" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="388" width="555" height="1" forecolor="#003333"/>
+			</line>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="472" y="132" width="1" height="506" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-1" y="638" width="555" height="1" forecolor="#003333"/>
+			</line>
+		</band>
+	</background>
+	<title>
+		<band height="10" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="107" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="17" width="252" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{billto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="29" width="212" height="40" isPrintWhenDetailOverflows="true"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{billtoaddress}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="69" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="87" width="41" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Pkgs]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="73" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Destination]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="87" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[SB No]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="47" y="73" width="75" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{blno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="73" width="71" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{bldate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="87" width="75" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$P{pkgs}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="401" y="73" width="152" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{destination}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="87" width="71" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$P{weight}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="401" y="87" width="151" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{sbno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="183" y="87" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Weight]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="16" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="285" y="16" width="1" height="53"/>
+			</line>
+			<textField>
+				<reportElement x="2" y="72" width="41" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{blNoLabel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="73" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{bldatelabel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="17" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Voucher No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="353" y="17" width="114" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{trxno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="297" y="30" width="43" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dated :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="353" y="30" width="114" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{trxdate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="236" y="2" width="98" height="13"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Journal Voucher]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="2" y="3" width="98" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Particulars]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="387" y="3" width="46" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="3" width="33" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Credit]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="18" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="2" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="369" y="3" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="472" y="3" width="1" height="15"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="487" y="1" width="65" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{non_taxable}.equals("6")?"":$F{entered_amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="0" width="152" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{code_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="0" width="113" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="1" width="60" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{non_taxable}.equals("0")?"":$F{entered_amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="194" splitType="Stretch">
+			<staticText>
+				<reportElement x="397" y="167" width="70" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="35" width="70" height="13">
+					<printWhenExpression><![CDATA[$P{discount} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LESS DISCOUNT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="487" y="34" width="65" height="13">
+					<printWhenExpression><![CDATA[$P{discount} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{discount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="3" width="60" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{nontaxable}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="487" y="3" width="65" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{taxable}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-1" y="18" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-1" y="48" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="487" y="167" width="65" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{grandtotal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="51" width="359" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount1} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{taxhead1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="1" y="63" width="359" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount2} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{taxhead2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="75" width="359" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount3} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{taxhead3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="87" width="359" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount4} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{taxhead4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="99" width="359" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount5} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{taxhead5}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="51" width="65" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount1} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{taxamount1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="63" width="65" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount2} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{taxamount2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="75" width="65" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount3} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{taxamount3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="87" width="65" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount4} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{taxamount4}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="99" width="65" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{taxamount5} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{taxamount5}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-1" y="2" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement x="-1" y="115" width="555" height="1">
+					<printWhenExpression><![CDATA[$P{tdsamount1} > 0]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-1" y="33" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="487" y="19" width="65" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_REVENUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="167" width="355" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{inwords}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="133" width="66" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{tdsamount2} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{tdsamount2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="5" y="145" width="355" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{tdsamount3} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tdshead3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="5" y="120" width="355" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{tdsamount1} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tdshead1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="120" width="66" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{tdsamount1} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{tdsamount1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="5" y="133" width="355" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{tdsamount2} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tdshead2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="487" y="146" width="66" height="13" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{tdsamount3} > 0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$P{tdsamount3}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="161" width="555" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="139" splitType="Stretch">
+			<line>
+				<reportElement x="-1" y="75" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="434" y="89" width="119" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Prepared By: " + $P{createdby}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="8" width="156" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{company}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="9" width="23" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[FOR]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="41" y="6" width="299" height="41"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{containerno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="47" width="338" height="26"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{remarks}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="6" width="34" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{contlabel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="495" y="62" width="56" height="13"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Auth. Signatory]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

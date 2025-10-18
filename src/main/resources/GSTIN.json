@@ -1,0 +1,313 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#", 
+  "definitions": {}, 
+  "id": "http://example.com/example.json", 
+  "properties": {
+    "b2b": {
+      "id": "/properties/b2b", 
+      "items": {
+        "id": "/properties/b2b/items", 
+        "properties": {
+          "cfs": {
+            "default": "N", 
+            "description": "An explanation about the purpose of this instance.", 
+            "id": "/properties/b2b/items/properties/cfs", 
+            "title": "The cfs schema", 
+            "type": "string"
+          }, 
+          "ctin": {
+            "default": "07AALCA4470C1ZV", 
+            "description": "An explanation about the purpose of this instance.", 
+            "id": "/properties/b2b/items/properties/ctin", 
+            "title": "The ctin schema", 
+            "type": "string"
+          }, 
+          "inv": {
+            "id": "/properties/b2b/items/properties/inv", 
+            "items": {
+              "id": "/properties/b2b/items/properties/inv/items", 
+              "properties": {
+                "chksum": {
+                  "default": "9818855b91bd76f3e34fe2d64e779c40644c4651542c56e03a6b10dd1647a711", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/chksum", 
+                  "title": "The chksum schema", 
+                  "type": "string"
+                }, 
+                "idt": {
+                  "default": "18-07-2017", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/idt", 
+                  "title": "The idt schema", 
+                  "type": "string"
+                }, 
+                "inum": {
+                  "default": "4586", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/inum", 
+                  "title": "The inum schema", 
+                  "type": "string"
+                }, 
+                "inv_typ": {
+                  "default": "R", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/inv_typ", 
+                  "title": "The inv_typ schema", 
+                  "type": "string"
+                }, 
+                "itms": {
+                  "id": "/properties/b2b/items/properties/inv/items/properties/itms", 
+                  "items": {
+                    "id": "/properties/b2b/items/properties/inv/items/properties/itms/items", 
+                    "properties": {
+                      "itm_det": {
+                        "id": "/properties/b2b/items/properties/inv/items/properties/itms/items/properties/itm_det", 
+                        "properties": {
+                          "iamt": {
+                            "default": 547.74000000000001, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/b2b/items/properties/inv/items/properties/itms/items/properties/itm_det/properties/iamt", 
+                            "title": "The iamt schema", 
+                            "type": "number"
+                          }, 
+                          "rt": {
+                            "default": 18, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/b2b/items/properties/inv/items/properties/itms/items/properties/itm_det/properties/rt", 
+                            "title": "The rt schema", 
+                            "type": "integer"
+                          }, 
+                          "txval": {
+                            "default": 3043, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/b2b/items/properties/inv/items/properties/itms/items/properties/itm_det/properties/txval", 
+                            "title": "The txval schema", 
+                            "type": "integer"
+                          }
+                        }, 
+                        "type": "object"
+                      }, 
+                      "num": {
+                        "default": 1, 
+                        "description": "An explanation about the purpose of this instance.", 
+                        "id": "/properties/b2b/items/properties/inv/items/properties/itms/items/properties/num", 
+                        "title": "The num schema", 
+                        "type": "integer"
+                      }
+                    }, 
+                    "type": "object"
+                  }, 
+                  "type": "array"
+                }, 
+                "pos": {
+                  "default": "09", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/pos", 
+                  "title": "The pos schema", 
+                  "type": "string"
+                }, 
+                "rchrg": {
+                  "default": "N", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/rchrg", 
+                  "title": "The rchrg schema", 
+                  "type": "string"
+                }, 
+                "val": {
+                  "default": 3591, 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/b2b/items/properties/inv/items/properties/val", 
+                  "title": "The val schema", 
+                  "type": "integer"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }
+        }, 
+        "type": "object"
+      }, 
+      "type": "array"
+    }, 
+    "b2ba": {
+      "id": "/properties/b2ba", 
+      "items": {
+        "description": "This accepts anything, as long as it's valid JSON.", 
+        "title": "Empty Object"
+      }, 
+      "type": "array"
+    }, 
+    "cdn": {
+      "id": "/properties/cdn", 
+      "items": {
+        "id": "/properties/cdn/items", 
+        "properties": {
+          "cfs": {
+            "default": "N", 
+            "description": "An explanation about the purpose of this instance.", 
+            "id": "/properties/cdn/items/properties/cfs", 
+            "title": "The cfs schema", 
+            "type": "string"
+          }, 
+          "ctin": {
+            "default": "03AAJCM4693D1ZI", 
+            "description": "An explanation about the purpose of this instance.", 
+            "id": "/properties/cdn/items/properties/ctin", 
+            "title": "The ctin schema", 
+            "type": "string"
+          }, 
+          "nt": {
+            "id": "/properties/cdn/items/properties/nt", 
+            "items": {
+              "id": "/properties/cdn/items/properties/nt/items", 
+              "properties": {
+                "chksum": {
+                  "default": "e2ab1a7099d465ed0815fca13b57f002c31825fd1194f7215ec6e4cdd8c64d7b", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/chksum", 
+                  "title": "The chksum schema", 
+                  "type": "string"
+                }, 
+                "idt": {
+                  "default": "20-07-2017", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/idt", 
+                  "title": "The idt schema", 
+                  "type": "string"
+                }, 
+                "inum": {
+                  "default": "5113542068", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/inum", 
+                  "title": "The inum schema", 
+                  "type": "string"
+                }, 
+                "itms": {
+                  "id": "/properties/cdn/items/properties/nt/items/properties/itms", 
+                  "items": {
+                    "id": "/properties/cdn/items/properties/nt/items/properties/itms/items", 
+                    "properties": {
+                      "itm_det": {
+                        "id": "/properties/cdn/items/properties/nt/items/properties/itms/items/properties/itm_det", 
+                        "properties": {
+                          "csamt": {
+                            "default": 0, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/cdn/items/properties/nt/items/properties/itms/items/properties/itm_det/properties/csamt", 
+                            "title": "The csamt schema", 
+                            "type": "integer"
+                          }, 
+                          "iamt": {
+                            "default": 2583.6999999999998, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/cdn/items/properties/nt/items/properties/itms/items/properties/itm_det/properties/iamt", 
+                            "title": "The iamt schema", 
+                            "type": "number"
+                          }, 
+                          "rt": {
+                            "default": 5, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/cdn/items/properties/nt/items/properties/itms/items/properties/itm_det/properties/rt", 
+                            "title": "The rt schema", 
+                            "type": "integer"
+                          }, 
+                          "txval": {
+                            "default": 51674, 
+                            "description": "An explanation about the purpose of this instance.", 
+                            "id": "/properties/cdn/items/properties/nt/items/properties/itms/items/properties/itm_det/properties/txval", 
+                            "title": "The txval schema", 
+                            "type": "integer"
+                          }
+                        }, 
+                        "type": "object"
+                      }, 
+                      "num": {
+                        "default": 1, 
+                        "description": "An explanation about the purpose of this instance.", 
+                        "id": "/properties/cdn/items/properties/nt/items/properties/itms/items/properties/num", 
+                        "title": "The num schema", 
+                        "type": "integer"
+                      }
+                    }, 
+                    "type": "object"
+                  }, 
+                  "type": "array"
+                }, 
+                "nt_dt": {
+                  "default": "29-07-2017", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/nt_dt", 
+                  "title": "The nt_dt schema", 
+                  "type": "string"
+                }, 
+                "nt_num": {
+                  "default": "5111237052", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/nt_num", 
+                  "title": "The nt_num schema", 
+                  "type": "string"
+                }, 
+                "ntty": {
+                  "default": "C", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/ntty", 
+                  "title": "The ntty schema", 
+                  "type": "string"
+                }, 
+                "p_gst": {
+                  "default": "N", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/p_gst", 
+                  "title": "The p_gst schema", 
+                  "type": "string"
+                }, 
+                "rsn": {
+                  "default": "04-Correction in Invoice", 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/rsn", 
+                  "title": "The rsn schema", 
+                  "type": "string"
+                }, 
+                "val": {
+                  "default": 68464.899999999994, 
+                  "description": "An explanation about the purpose of this instance.", 
+                  "id": "/properties/cdn/items/properties/nt/items/properties/val", 
+                  "title": "The val schema", 
+                  "type": "number"
+                }
+              }, 
+              "type": "object"
+            }, 
+            "type": "array"
+          }
+        }, 
+        "type": "object"
+      }, 
+      "type": "array"
+    }, 
+    "cdna": {
+      "id": "/properties/cdna", 
+      "items": {
+        "description": "This accepts anything, as long as it's valid JSON.", 
+        "title": "Empty Object"
+      }, 
+      "type": "array"
+    }, 
+    "fp": {
+      "default": "072017", 
+      "description": "An explanation about the purpose of this instance.", 
+      "id": "/properties/fp", 
+      "title": "The fp schema", 
+      "type": "string"
+    }, 
+    "gstin": {
+      "default": "09AAICS8856R1Z3", 
+      "description": "An explanation about the purpose of this instance.", 
+      "id": "/properties/gstin", 
+      "title": "The gstin schema", 
+      "type": "string"
+    }
+  }, 
+  "type": "object"
+}

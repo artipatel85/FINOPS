@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cargoStatus" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="117"/>
+	<queryString>
+		<![CDATA[SELECT COALESCE(fcl.grosswt,0) gwt,COALESCE(fcl.qty,0) qty,
+                 COALESCE(fcl.cbm,0) cbm,fcl.fclbl,fcl.cntnr cntnr,fcl.sbno sbno,
+                 bl.bl_no,CONVERT(char(10),bl.bl_issue_date,120) bl_issue_date,
+                 bl.pod,bl.pod_name,bl.pol,bl.pol_name,bl.carrier_code,bl.job_number,
+                 CONVERT(char(10),etd,120) etd,bl.shpr,bl.cnee,shpr.description1 shprname,
+                 cnee.description1 cneename,party.code_combination_id,sal.name salesman,
+                 party.credit_period,bl.dest_agnt, dest.description1 destname, bl.loading_agnt,
+                 loading.description1 loadingname,shpr.address1 shpraddress, cnee.address1 cneeaddress,
+                 dest.address1 destaddress, loading.address1 loadingaddress,
+                 destcc.code_combination_id destccid,bl.M_BL_NUMBER,fcl.linesealno,fcl.customsealno
+                 FROM BL_HDR_F bl
+                 LEFT OUTER JOIN (SELECT pa.partner_account_code,pa.partner_code,cc.code_combination_id,pa.credit_period
+                 FROM partner_account_d pa, gl_code_combination_d cc
+                 WHERE cc.code_combination_id = pa.partner_acct_code
+                 AND pa.loadng_agnt = 'SFP' AND pa.status = 'A') party
+                 ON (party.partner_code = bl.shpr)
+                 LEFT OUTER JOIN (
+                 SELECT SUM(t1.act_gross_wt) grosswt,SUM(t1.act_cbm) cbm,SUM(t1.ACT_QTY) qty,t1.bl_no fclbl,
+                 SUBSTRING((SELECT ( ', ' + t2.CONTNR_NO + (CASE WHEN t2.size_code IS NULL THEN '' ELSE ' / '+t2.size_code END)) FROM bl_fcl_lcl_f t2
+                 WHERE t1.bl_no = t2.bl_no
+                 ORDER BY t1.bl_no, t2.bl_no FOR XML PATH('') ), 3, 1000) cntnr,
+                 SUBSTRING((SELECT ( ', ' + t2.shipping_bill_no) FROM bl_fcl_lcl_f t2
+                 WHERE t1.bl_no = t2.bl_no
+                 ORDER BY t1.bl_no, t2.bl_no FOR XML PATH('') ), 3, 1000) sbno,
+                 SUBSTRING((SELECT ( ', ' + t2.LINE_SEAL_NO) FROM bl_fcl_lcl_f t2
+                 WHERE t1.bl_no = t2.bl_no
+                 ORDER BY t1.bl_no, t2.bl_no FOR XML PATH('') ), 3, 1000) linesealno,
+                 SUBSTRING((SELECT ( ', ' + t2.CUSTM_SEAL_NO) FROM bl_fcl_lcl_f t2
+                 WHERE t1.bl_no = t2.bl_no
+                 ORDER BY t1.bl_no, t2.bl_no FOR XML PATH('') ), 3, 1000) customsealno
+                 FROM bl_fcl_lcl_f t1
+                 GROUP BY bl_no) fcl ON (fcl.fclbl = bl.bl_no)
+                 LEFT OUTER JOIN partner_account_d shpr ON (shpr.partner_code = bl.shpr AND shpr.loadng_agnt = 'SFP' AND shpr.status = 'A')
+                 LEFT OUTER JOIN partner_account_d cnee ON (cnee.partner_code = bl.cnee AND cnee.loadng_agnt = 'SFP' AND cnee.status = 'A')
+                 LEFT OUTER JOIN partner_account_d dest ON (dest.partner_code = bl.dest_agnt AND dest.loadng_agnt = 'SFP' AND dest.status = 'A')
+                 LEFT OUTER JOIN partner_account_d loading ON (loading.partner_code = bl.loading_agnt AND loading.loadng_agnt = 'SFP' AND loading.status = 'A')
+                 LEFT OUTER JOIN gl_code_combination_d destcc ON (destcc.code_combination_id = dest.partner_acct_code)
+                 LEFT OUTER JOIN salesman_f sal ON (sal.code = shpr.salesman_code)
+                 WHERE bl.bl_no = '6621025279']]>
+	</queryString>
+	<field name="gwt" class="java.math.BigDecimal"/>
+	<field name="qty" class="java.math.BigDecimal"/>
+	<field name="cbm" class="java.math.BigDecimal"/>
+	<field name="fclbl" class="java.lang.String"/>
+	<field name="cntnr" class="java.lang.String"/>
+	<field name="sbno" class="java.lang.String"/>
+	<field name="bl_no" class="java.lang.String"/>
+	<field name="bl_issue_date" class="java.lang.String"/>
+	<field name="pod" class="java.lang.String"/>
+	<field name="pod_name" class="java.lang.String"/>
+	<field name="pol" class="java.lang.String"/>
+	<field name="pol_name" class="java.lang.String"/>
+	<field name="carrier_code" class="java.lang.String"/>
+	<field name="job_number" class="java.lang.String"/>
+	<field name="etd" class="java.lang.String"/>
+	<field name="shpr" class="java.lang.String"/>
+	<field name="cnee" class="java.lang.String"/>
+	<field name="shprname" class="java.lang.String"/>
+	<field name="cneename" class="java.lang.String"/>
+	<field name="code_combination_id" class="java.lang.Integer"/>
+	<field name="salesman" class="java.lang.String"/>
+	<field name="credit_period" class="java.lang.Integer"/>
+	<field name="dest_agnt" class="java.lang.String"/>
+	<field name="destname" class="java.lang.String"/>
+	<field name="loading_agnt" class="java.lang.String"/>
+	<field name="loadingname" class="java.lang.String"/>
+	<field name="shpraddress" class="java.lang.String"/>
+	<field name="cneeaddress" class="java.lang.String"/>
+	<field name="destaddress" class="java.lang.String"/>
+	<field name="loadingaddress" class="java.lang.String"/>
+	<field name="destccid" class="java.lang.Integer"/>
+	<field name="M_BL_NUMBER" class="java.lang.String"/>
+	<field name="linesealno" class="java.lang.String"/>
+	<field name="customsealno" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="159" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="80" width="152" height="20"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo Status Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="139" width="532" height="20"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[We are pleased to advise you the status of your valuable cargo as follows:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="104" width="19" height="13"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[TO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="13" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="267" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="2" width="554" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="4" y="6" width="64" height="20"/>
+				<textElement/>
+				<text><![CDATA[Shipper]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="6" width="87" height="20"/>
+				<textElement/>
+				<text><![CDATA[Final Destination]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="28" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Shipping Bill No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="50" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[No of Packages]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="72" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Weight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="28" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Port of Discharge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="50" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Line Seal No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="72" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Custom Seal No]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="376" y="50" width="179" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{linesealno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="72" width="179" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{customsealno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="28" width="160" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{pod_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="6" width="160" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{destname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="28" width="153" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{sbno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="50" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="72" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{gwt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="126" width="64" height="20"/>
+				<textElement/>
+				<text><![CDATA[Carting Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="148" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Stuffing Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="170" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[B/L Number]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="192" width="79" height="20"/>
+				<textElement/>
+				<text><![CDATA[Container No]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="101" y="192" width="405" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cntnr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="170" width="153" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{bl_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="6" width="153" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{shprname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

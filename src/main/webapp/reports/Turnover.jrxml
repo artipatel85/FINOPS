@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Turnover" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="startDate" class="java.lang.String"/>
+	<parameter name="endDate" class="java.lang.String"/>
+	<parameter name="company" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="localForeign" class="java.lang.String"/>
+	<parameter name="seaAir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT CONVERT(CHAR(10),trx_date,120) trx_date,ar.customer_trx_id,trx_number,trx_total,total_tax,ofr.amount ofr,
+hcr.amount hcr,ar.partner_account_code,pa.DESCRIPTION1,thc.amount thc,trs.amount trs
+FROM ar_customer_trx_f ar
+LEFT OUTER JOIN (SELECT SUM(ACCOUNTED_AMOUNT) amount,CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+FROM ar_customer_trx_lines_f
+GROUP BY CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+HAVING code_combination_id IN (1048)) ofr ON (ofr.CUSTOMER_TRX_ID=ar.CUSTOMER_TRX_ID)
+LEFT OUTER JOIN (SELECT SUM(ACCOUNTED_AMOUNT) amount,CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+FROM ar_customer_trx_lines_f
+GROUP BY CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+HAVING code_combination_id IN (1052)) hcr ON (hcr.CUSTOMER_TRX_ID=ar.CUSTOMER_TRX_ID)
+LEFT OUTER JOIN (SELECT SUM(ACCOUNTED_AMOUNT) amount,CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+FROM ar_customer_trx_lines_f
+GROUP BY CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+HAVING code_combination_id IN (1051)) thc ON (thc.CUSTOMER_TRX_ID=ar.CUSTOMER_TRX_ID)
+LEFT OUTER JOIN (SELECT SUM(ACCOUNTED_AMOUNT) amount,CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+FROM ar_customer_trx_lines_f
+GROUP BY CODE_COMBINATION_ID,CUSTOMER_TRX_ID
+HAVING code_combination_id IN (1054)) trs ON (trs.CUSTOMER_TRX_ID=ar.CUSTOMER_TRX_ID)
+LEFT OUTER JOIN partner_account_d pa ON (ar.BILLTO = pa.PARTNER_CODE
+AND pa.LOADNG_AGNT = ar.LOADING_AGNT)
+WHERE ar.trx_date BETWEEN $P{startDate} AND $P{endDate}
+AND ar.REV_EXP = 'REVENUE' AND ar.LOCAL_FOREIGN LIKE $P{localForeign} AND ar.SEA_AIR LIKE $P{seaAir}]]>
+	</queryString>
+	<field name="trx_date" class="java.lang.String"/>
+	<field name="customer_trx_id" class="java.lang.Integer"/>
+	<field name="trx_number" class="java.lang.String"/>
+	<field name="trx_total" class="java.math.BigDecimal"/>
+	<field name="total_tax" class="java.math.BigDecimal"/>
+	<field name="ofr" class="java.math.BigDecimal"/>
+	<field name="hcr" class="java.math.BigDecimal"/>
+	<field name="partner_account_code" class="java.lang.Integer"/>
+	<field name="DESCRIPTION1" class="java.lang.String"/>
+	<field name="thc" class="java.math.BigDecimal"/>
+	<field name="trs" class="java.math.BigDecimal"/>
+	<variable name="TOTAL_BILL_AMT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{trx_total}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_HCR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{hcr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_THC" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{thc}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_OFR" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ofr}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_STAX" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_tax}]]></variableExpression>
+	</variable>
+	<variable name="TOTAL_TRS" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{trs}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<textField>
+				<reportElement x="318" y="90" width="51" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{startDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="0" width="145" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sales Reg - Turnover]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="90" width="26" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="390" y="90" width="60" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{endDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="373" y="90" width="13" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="231" y="24" width="264" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{company}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="44" width="264" height="38"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="1" width="40" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="1" width="40" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="1" width="121" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Party]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="1" width="53" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bill Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="1" width="53" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HLReced]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="1" width="52" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Inland/THC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="484" y="1" width="50" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Freight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="544" y="1" width="51" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service Tax]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="19" width="801" height="1"/>
+				<graphicElement>
+					<pen lineWidth="1.25" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="607" y="0" width="66" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transportation]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="2" y="1" width="49" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trx_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="1" width="50" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trx_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="484" y="1" width="50" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{ofr} == null) ? 0.00 : $F{ofr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="1" width="53" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{hcr}==null ? 0.00 : $F{hcr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="544" y="1" width="51" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total_tax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="1" width="121" height="12"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPTION1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="1" width="53" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{trx_total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="16" width="801" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="422" y="1" width="50" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{thc} == null) ? 0.00 : $F{thc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="607" y="1" width="50" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[($F{trs} == null) ? 0.00 : $F{trs}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="294" y="4" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_BILL_AMT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="4" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_HCR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="4" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_THC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="484" y="4" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_OFR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="544" y="4" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_STAX}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="607" y="4" width="53" height="13"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{TOTAL_TRS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

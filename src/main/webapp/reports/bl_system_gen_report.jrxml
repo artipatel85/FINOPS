@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 4.0.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bl_system_gen_report" pageWidth="605" pageHeight="845" whenNoDataType="AllSectionsNoDetail" columnWidth="560" leftMargin="25" rightMargin="20" topMargin="10" bottomMargin="10">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="444"/>
+	<parameter name="consignor" class="java.lang.String"/>
+	<parameter name="consignee" class="java.lang.String"/>
+	<parameter name="notify" class="java.lang.String"/>
+	<parameter name="por" class="java.lang.String"/>
+	<parameter name="pol" class="java.lang.String"/>
+	<parameter name="pod" class="java.lang.String"/>
+	<parameter name="destination" class="java.lang.String"/>
+	<parameter name="precarriage" class="java.lang.String"/>
+	<parameter name="vsl" class="java.lang.String"/>
+	<parameter name="voy" class="java.lang.String"/>
+	<parameter name="packageDetails" class="java.lang.String"/>
+	<parameter name="saidToContain" class="java.lang.String"/>
+	<parameter name="actualGross" class="java.lang.String"/>
+	<parameter name="actualCBM" class="java.lang.String"/>
+	<parameter name="markNo" class="java.lang.String"/>
+	<parameter name="markDetails" class="java.lang.String"/>
+	<parameter name="imagepath" class="java.lang.String"/>
+	<parameter name="blNo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="freightPayableAt" class="java.lang.String"/>
+	<parameter name="noOfOriginal" class="java.lang.String"/>
+	<parameter name="placeOfIssue" class="java.lang.String"/>
+	<parameter name="issueDate" class="java.lang.String"/>
+	<parameter name="destAddress" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="wmark" class="java.lang.String"/>
+	<parameter name="backimage" class="java.lang.String"/>
+	<parameter name="actualUnit" class="java.lang.String"/>
+	<parameter name="attach" class="java.lang.String"/>
+	<parameter name="nlpop" class="java.lang.String"/>
+	<parameter name="titleheader" class="java.lang.String"/>
+	<parameter name="signature" class="java.lang.String"/>
+	<parameter name="saidToContainFCL" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="actualQty" class="java.lang.String"/>
+	<field name="serviceTerm" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="lineSealNumber" class="java.lang.String"/>
+	<field name="number" class="java.lang.String"/>
+	<field name="actualUnit" class="java.lang.String"/>
+	<field name="measurement" class="java.lang.String"/>
+	<field name="actualWeight" class="java.lang.String"/>
+	<field name="containerNo" class="java.lang.String"/>
+	<field name="size" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.String">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<background>
+		<band height="800" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="255" width="562" height="535"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{wmark}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="4">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="407" splitType="Prevent">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+			<image scaleImage="FillFrame">
+				<reportElement positionType="Float" mode="Opaque" x="287" y="48" width="272" height="223"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{imagepath}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="2" y="30" width="279" height="1">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="2" y="32" width="66" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consignor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="111" width="123" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Consignee (or order)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="109" width="279" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="190" width="66" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Notify Address]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="186" width="279" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="271" width="112" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Place of acceptance]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="266" width="279" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="301" width="99" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Port of Discharge]]></text>
+			</staticText>
+			<line>
+				<reportElement x="2" y="296" width="558" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="330" width="101" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vessel & Voyage No.]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="329" width="280" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="360" width="559" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="306" y="305" width="142" height="17"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Modes / means of Transport]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="304" width="107" height="17"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Route/place of transhipment(if any)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="10" y="44" width="269" height="65"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{consignor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="124" width="266" height="62"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{consignee}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="181" y="271" width="83" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Port of Loading]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="301" width="94" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Place of Delivery]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="13" y="203" width="268" height="62"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{notify}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="12" y="284" width="140" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{por}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="284" width="98" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{pol}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="315" width="139" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{pod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="315" width="98" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{destination}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="307" y="328" width="141" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{precarriage}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="11" y="343" width="110" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{vsl}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="343" width="83" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{voy}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="281" y="30" width="1" height="330"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="361" width="83" height="20"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Container No.(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="85" y="361" width="95" height="20"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marks and Numbers]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="361" width="244" height="30"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of packages, kind of packages, general
+description of goods]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="361" width="64" height="20"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gross Weight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="361" width="61" height="20"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Measurement]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="2" y="391" width="560" height="15" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[$P{markDetails}.length() > 6]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{attach}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="317" y="24" width="132" height="17"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Shipment Reference No]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="462" y="24" width="100" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="5" width="277" height="21"/>
+				<textElement lineSpacing="Single">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MULTIMODAL TRANSPORT DOCUMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="317" y="6" width="66" height="17"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MTD Number]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="462" y="2" width="100" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement x="462" y="2" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Monospaced" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{blNo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="315" y="272" width="142" height="24">
+					<printWhenExpression><![CDATA[$P{noOfOriginal}.equalsIgnoreCase("SEAWAYBILL")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle" lineSpacing="Single">
+					<font fontName="Monospaced" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEAWAYBILL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="241" splitType="Immediate">
+			<textField>
+				<reportElement x="4" y="36" width="122" height="25"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{packageDetails}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="34" width="277" height="40"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{saidToContain}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="37" width="56" height="14"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{actualGross}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="37" width="56" height="14"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{actualCBM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="3" y="74" width="174" height="151"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{markNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="184" y="74" width="370" height="151" isPrintWhenDetailOverflows="true"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{markDetails}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="1" y="226" width="113" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Container No / Size]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="147" y="226" width="59" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SEAL NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="214" y="226" width="83" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTY / UNIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="303" y="226" width="83" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GROSS WT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="399" y="226" width="83" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEASUREMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="487" y="226" width="72" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICE TERM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="50" width="28" height="11"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[(KGS)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="50" width="28" height="11"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[(CBM)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="0" width="562" height="15"/>
+				<textElement textAlignment="Center" lineSpacing="Single"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{nlpop}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="3" y="16" width="559" height="18" isRemoveLineWhenBlank="true"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{titleheader}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="34" width="559" height="1">
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}>1]]></printWhenExpression>
+				</reportElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Immediate">
+			<textField>
+				<reportElement x="5" y="-1" width="75" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="497" y="-1" width="57" height="12"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{serviceTerm}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="-1" width="67" height="12"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lineSealNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="-1" width="20" height="12"/>
+				<textElement textAlignment="Right" lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{actualQty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="-1" width="59" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{actualUnit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="-1" width="67" height="12"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{measurement}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="-1" width="50" height="12"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{actualWeight}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="10" width="28" height="11"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[(KGS)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="436" y="10" width="28" height="11"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[(CBM)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="0" width="43" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{size}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="143" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="177" y="0" width="281" height="15"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Particulars above furnished by consignor / consignee]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="16" width="559" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="51" width="559" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="2" y="17" width="99" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Freight Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="17" width="99" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Freight Payable at]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="249" y="17" width="170" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Number of Original BL / MTD (s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="16" width="129" height="12"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Place and Date of issue]]></text>
+			</staticText>
+			<line>
+				<reportElement x="240" y="16" width="1" height="34"/>
+			</line>
+			<line>
+				<reportElement x="125" y="17" width="1" height="34"/>
+			</line>
+			<line>
+				<reportElement x="422" y="16" width="1" height="34"/>
+			</line>
+			<textField>
+				<reportElement x="131" y="31" width="100" height="20"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Courier New" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{freightPayableAt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="261" y="32" width="100" height="20"/>
+				<textElement textAlignment="Center" lineSpacing="Single">
+					<font fontName="Courier New" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{noOfOriginal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="31" width="66" height="16"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{placeOfIssue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="499" y="30" width="60" height="16"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{issueDate}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="315" y="51" width="1" height="92"/>
+			</line>
+			<staticText>
+				<reportElement x="3" y="53" width="197" height="12"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Other Particulars (if any)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="53" width="19" height="11"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[For]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="3" y="67" width="272" height="73"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Courier New" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{destAddress}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="142" width="559" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="355" y="53" width="204" height="15"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Monospaced" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SHIKHAR LOGISTICS PVT LTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="422" y="126" width="50" height="11"/>
+				<textElement lineSpacing="Single">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[As Carrier]]></text>
+			</staticText>
+			<image>
+				<reportElement x="407" y="74" width="98" height="44"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{signature}]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

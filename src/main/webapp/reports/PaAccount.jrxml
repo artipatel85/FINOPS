@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PaAccount" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#E6DAC3"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[SELECT * FROM partner_account_d
+ORDER BY description1]]>
+	</queryString>
+	<field name="PARTNER_ACCOUNT_CODE" class="java.lang.String"/>
+	<field name="COMPANY_ID" class="java.lang.Integer"/>
+	<field name="CODE_NO" class="java.lang.String"/>
+	<field name="SERIAL_NO" class="java.math.BigDecimal"/>
+	<field name="PARTNER_CODE" class="java.lang.String"/>
+	<field name="LOADNG_AGNT" class="java.lang.String"/>
+	<field name="DEST_AGNT" class="java.lang.String"/>
+	<field name="DESCRIPTION1" class="java.lang.String"/>
+	<field name="DESCRIPTION2" class="java.lang.String"/>
+	<field name="ADDRESS1" class="java.lang.String"/>
+	<field name="ADDRESS2" class="java.lang.String"/>
+	<field name="CITY_NAME" class="java.lang.String"/>
+	<field name="ZIP_CODE" class="java.lang.String"/>
+	<field name="COUNTRY_CODE" class="java.lang.String"/>
+	<field name="EMAIL" class="java.lang.String"/>
+	<field name="WEB" class="java.lang.String"/>
+	<field name="TEL_CC" class="java.lang.String"/>
+	<field name="TEL_AC" class="java.lang.String"/>
+	<field name="TEL_NO" class="java.lang.String"/>
+	<field name="FAX_CC" class="java.lang.String"/>
+	<field name="FAX_AC" class="java.lang.String"/>
+	<field name="FAX_NO" class="java.lang.String"/>
+	<field name="CLIENT" class="java.lang.String"/>
+	<field name="BILLING_PARTY" class="java.lang.String"/>
+	<field name="SHPR" class="java.lang.String"/>
+	<field name="CNEE" class="java.lang.String"/>
+	<field name="AGNT" class="java.lang.String"/>
+	<field name="CO_LOADER" class="java.lang.String"/>
+	<field name="CARRIER" class="java.lang.String"/>
+	<field name="SUB_CONTRCTR" class="java.lang.String"/>
+	<field name="PARTNER_ACCT_CODE" class="java.lang.String"/>
+	<field name="DISPLAY" class="java.lang.String"/>
+	<field name="PAN_NO" class="java.lang.String"/>
+	<field name="TAN_NO" class="java.lang.String"/>
+	<field name="SERVICE_TAX" class="java.lang.String"/>
+	<field name="STATUS" class="java.lang.String"/>
+	<field name="CREATED_BY" class="java.lang.String"/>
+	<field name="CREATION_DATE" class="java.sql.Timestamp"/>
+	<field name="AMENDED_BY" class="java.lang.String"/>
+	<field name="AMENDED_DATE" class="java.sql.Timestamp"/>
+	<field name="CURRENCY_ID" class="java.lang.Integer"/>
+	<field name="NOTE" class="java.lang.String"/>
+	<field name="CREDIT_PERIOD" class="java.lang.Integer"/>
+	<field name="SALESMAN_CODE" class="java.lang.String"/>
+	<columnHeader>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="48" y="0" width="66" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="0" width="66" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="1" width="66" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="244" y="1" width="60" height="12"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loading Agent : ]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="48" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PARTNER_ACCOUNT_CODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="48" y="0" width="66" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PARTNER_CODE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="114" y="0" width="130" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{DESCRIPTION1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="304" y="1" width="198" height="14"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ADDRESS1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="244" y="0" width="60" height="14"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{LOADNG_AGNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

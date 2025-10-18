@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AgeingSalesmanPartywise" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="band1" class="java.lang.String"/>
+	<parameter name="band2" class="java.lang.String"/>
+	<parameter name="band3" class="java.lang.String"/>
+	<parameter name="band4" class="java.lang.String"/>
+	<parameter name="band5" class="java.lang.String"/>
+	<parameter name="salesBy" class="java.lang.String"/>
+	<parameter name="band1A" class="java.lang.Integer"/>
+	<parameter name="band1B" class="java.lang.Integer"/>
+	<parameter name="band2A" class="java.lang.Integer"/>
+	<parameter name="band2B" class="java.lang.Integer"/>
+	<parameter name="band3A" class="java.lang.Integer"/>
+	<parameter name="band3B" class="java.lang.Integer"/>
+	<parameter name="band4A" class="java.lang.Integer"/>
+	<parameter name="band4B" class="java.lang.Integer"/>
+	<parameter name="band5A" class="java.lang.Integer"/>
+	<parameter name="band5B" class="java.lang.Integer"/>
+	<parameter name="asOnDate" class="java.lang.String"/>
+	<parameter name="localForeign" class="java.lang.String"/>
+	<parameter name="currencyId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT ps.code_combination_id,cc.acct_name,trx.sales_by,
+                SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) <  $P{band2A}
+THEN amount_due_remain ELSE 0 END) band1total,
+                SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) >  $P{band1B}
+AND datediff(d,ps.due_date,getdate()) <  $P{band3A}  THEN amount_due_remain ELSE 0 END) band2total,
+                SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) >  $P{band2B}
+AND datediff(d,ps.due_date,getdate()) <  $P{band4A}  THEN amount_due_remain ELSE 0 END) band3total,
+                SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) >  $P{band3B}
+AND datediff(d,ps.due_date,getdate()) <  $P{band5A}  THEN amount_due_remain ELSE 0 END) band4total,
+                SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) >  $P{band4B}
+THEN amount_due_remain ELSE 0 END) band5total
+                FROM gl_payment_schedule_f ps
+                INNER JOIN gl_code_combination_d cc ON (cc.code_combination_id = ps.code_combination_id AND cc.parent_id IN (22,29))
+                INNER JOIN gl_je_f je ON (je.je_hdr_id = ps.je_hdr_id AND je.hdr_line_flag='H'
+		AND je.je_source IN ('INVOICE','EXPENSE'))
+                LEFT OUTER JOIN ar_customer_trx_f trx ON (trx.customer_trx_id = je.je_source_hdr_id)
+                WHERE ps.ref_type NOT IN (4) AND ps.company_id = 1001 AND ps.dr_cr = 'DR' AND trx.local_foreign LIKE $P{localForeign} AND ps.currency_id = $P{currencyId}
+		AND trx.sales_by LIKE $P{salesBy}
+                GROUP BY ps.code_combination_id,ps.company_id,ps.ref_type,ps.dr_cr,
+                cc.acct_name,trx.SALES_BY
+		ORDER BY trx.sales_by]]>
+	</queryString>
+	<field name="codeCombinationId" class="java.lang.Integer"/>
+	<field name="acctName" class="java.lang.String"/>
+	<field name="salesMan" class="java.lang.String"/>
+	<field name="band1Value" class="java.math.BigDecimal"/>
+	<field name="band2Value" class="java.math.BigDecimal"/>
+	<field name="band3Value" class="java.math.BigDecimal"/>
+	<field name="band4Value" class="java.math.BigDecimal"/>
+	<field name="band5Value" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<variable name="ROW_TOTAL" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<variable name="B1TOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="Salesman" calculation="Sum">
+		<variableExpression><![CDATA[$F{band1Value}]]></variableExpression>
+	</variable>
+	<variable name="B2TOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="Salesman" calculation="Sum">
+		<variableExpression><![CDATA[$F{band2Value}]]></variableExpression>
+	</variable>
+	<variable name="B3TOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="Salesman" calculation="Sum">
+		<variableExpression><![CDATA[$F{band3Value}]]></variableExpression>
+	</variable>
+	<variable name="B4TOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="Salesman" calculation="Sum">
+		<variableExpression><![CDATA[$F{band4Value}]]></variableExpression>
+	</variable>
+	<variable name="B5TOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="Salesman" calculation="Sum">
+		<variableExpression><![CDATA[$F{band5Value}]]></variableExpression>
+	</variable>
+	<variable name="BTOTAL" class="java.math.BigDecimal" resetType="Group" resetGroup="Salesman" calculation="Sum">
+		<variableExpression><![CDATA[$V{ROW_TOTAL}]]></variableExpression>
+	</variable>
+	<group name="Salesman">
+		<groupExpression><![CDATA[$F{salesMan}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField isBlankWhenNull="true">
+					<reportElement x="10" y="19" width="124" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="11" isBold="true" isItalic="true" isUnderline="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{salesMan}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="36" width="554" height="1"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineStyle="Double"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="26">
+				<textField>
+					<reportElement x="194" y="8" width="51" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{B1TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="254" y="8" width="51" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{B2TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="317" y="8" width="51" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{B3TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="374" y="8" width="51" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{B4TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="432" y="8" width="51" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{B5TOTAL}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="492" y="8" width="51" height="15"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{BTOTAL}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="4" width="554" height="1"/>
+				</line>
+				<line>
+					<reportElement x="0" y="25" width="554" height="1"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="802" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="-1" width="555" height="802"/>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="10" width="138" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGEING REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="252" y="3" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="3" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="3" width="51" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="3" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band3}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="492" y="2" width="50" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="2" width="125" height="14"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTY]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="430" y="3" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band5}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="19" width="554" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField>
+				<reportElement x="371" y="4" width="54" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band4Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="3" width="54" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band3Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="3" width="54" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band2Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="194" y="3" width="51" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band1Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="3" width="54" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band5Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="3" width="162" height="15"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{acctName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="3" width="50" height="14"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="8" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

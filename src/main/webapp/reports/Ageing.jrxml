@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Bank_rec" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="companyId" class="java.lang.Integer"/>
+	<parameter name="acctYear" class="java.lang.String"/>
+	<parameter name="lineAcctId" class="java.lang.Integer"/>
+	<parameter name="band1A" class="java.lang.Integer"/>
+	<parameter name="band1B" class="java.lang.Integer"/>
+	<parameter name="band2A" class="java.lang.Integer"/>
+	<parameter name="band2B" class="java.lang.Integer"/>
+	<parameter name="band3A" class="java.lang.Integer"/>
+	<parameter name="band3B" class="java.lang.Integer"/>
+	<parameter name="band4A" class="java.lang.Integer"/>
+	<parameter name="band4B" class="java.lang.Integer"/>
+	<parameter name="band5A" class="java.lang.Integer"/>
+	<parameter name="band5B" class="java.lang.Integer"/>
+	<parameter name="asOnDate" class="java.lang.String"/>
+	<parameter name="band1" class="java.lang.String"/>
+	<parameter name="band2" class="java.lang.String"/>
+	<parameter name="band3" class="java.lang.String"/>
+	<parameter name="band4" class="java.lang.String"/>
+	<parameter name="band5" class="java.lang.String"/>
+	<parameter name="acctName" class="java.lang.String"/>
+	<parameter name="localForeign" class="java.lang.String"/>
+	<parameter name="parentId" class="java.lang.String"/>
+	<parameter name="currencyId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT ageing.code_combination_id,cc.acct_name,ageing.band1total,ageing.band2total,ageing.band3total,ageing.band4total,
+         ageing.band5total,(band1total+band2total+band3total+band4total+band5total) as total
+FROM (SELECT ps.code_combination_id,
+     SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) < $P{band2A}
+	THEN amount_due_remain ELSE 0 END) band1total,
+     SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) > $P{band1B} AND datediff(d,ps.due_date,getdate()) < $P{band3A}
+	THEN amount_due_remain ELSE 0 END) band2total,
+     SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) > $P{band2B} AND datediff(d,ps.due_date,getdate()) < $P{band4A}
+	THEN amount_due_remain ELSE 0 END) band3total,
+     SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) > $P{band3B} AND datediff(d,ps.due_date,getdate()) < $P{band5A}
+	THEN amount_due_remain ELSE 0 END) band4total,
+     SUM(CASE WHEN datediff(d,ps.due_date,$P{asOnDate}) > $P{band4B}
+	THEN amount_due_remain ELSE 0 END) band5total
+     FROM gl_payment_schedule_f ps
+     INNER JOIN gl_code_combination_d cc ON (cc.code_combination_id = ps.code_combination_id AND cc.parent_id IN (22,29))
+     INNER JOIN gl_je_f je ON (je.je_hdr_id = ps.je_hdr_id AND je.hdr_line_flag='H' AND je.je_source IN ('INVOICE','EXPENSE'))
+     LEFT OUTER JOIN ar_customer_trx_f trx ON (trx.customer_trx_id = je.je_source_hdr_id)
+     WHERE ref_type NOT IN (4) AND ps.company_id = $P{companyId} AND trx.local_foreign LIKE $P{localForeign}
+     AND ps.currency_id = $P{currencyId}
+     GROUP BY ps.code_combination_id,ps.company_id,ps.ref_type,ps.dr_cr) ageing
+     INNER JOIN gl_code_combination_d cc ON (cc.code_combination_id = ageing.code_combination_id)
+     WHERE (band1total+band2total+band3total+band4total+band5total) <> 0
+     AND cc.acct_name LIKE $P{acctName}
+     AND ageing.code_combination_id IN (SELECT code_combination_id FROM gl_code_combination_d WHERE parent_id LIKE $P{parentId})]]>
+	</queryString>
+	<field name="codeCombinationId" class="java.lang.Integer"/>
+	<field name="acctName" class="java.lang.String"/>
+	<field name="band1Value" class="java.math.BigDecimal"/>
+	<field name="band2Value" class="java.math.BigDecimal"/>
+	<field name="band3Value" class="java.math.BigDecimal"/>
+	<field name="band4Value" class="java.math.BigDecimal"/>
+	<field name="band5Value" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<variable name="PAGE_TOTAL" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal(0.00)]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="0" width="534" height="801"/>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="0" width="138" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGEING REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="167" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACCOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="0" width="50" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="185" y="1" width="51" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="1" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="1" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="1" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="1" width="54" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{band5}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="2" width="535" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="1" y="3" width="166" height="14"/>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{acctName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="2" width="51" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band1Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="2" width="54" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band2Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="304" y="2" width="51" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band3Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="2" width="51" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band4Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="2" width="51" height="15"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{band5Value}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="3" width="50" height="14"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="15" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement x="329" y="4" width="73" height="11"/>
+				<textElement textAlignment="Center">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="1" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="17" width="535" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="482" y="4" width="50" height="11"/>
+				<textElement textAlignment="Right">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{PAGE_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+	<summary>
+		<band height="50" splitType="Stretch"/>
+	</summary>
+</jasperReport>

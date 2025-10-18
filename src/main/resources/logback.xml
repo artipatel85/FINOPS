@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<configuration>                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                              
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">                                                                                                                                                                        
+    <encoder>                                                                                                                                                                                                                                 
+      <pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} %-5level %logger{25} [%X{module}] [%X{id}] [%X{number}] [%X{userId}] - %msg%n</pattern>                                                                                                                                                             
+    </encoder>                                                                                                                                                                                                                               
+  </appender>
+  
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+    <file>C:\Bhaumik\Logs\Shikhar\Shikhar.log</file>                                                                                                                                                              
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">                                                                                                                                                                
+      <!-- Daily rollover -->                                                                                                                                                                                                                 
+      <fileNamePattern>C:\Bhaumik\Logs\Shikhar\Shikhar.%d.log</fileNamePattern>                                                                                                                                                                                                                                        
+      <!-- Keep 7 days' worth of history -->                                                                                                                                                                                                  
+      <maxHistory>31</maxHistory>                                                                                                                                                                                                              
+    </rollingPolicy>                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                              
+    <encoder>                                                                                                                                                                                                                                 
+      <pattern>%d{dd-MMM-yyyy HH:mm:ss.SSS} %-5level %logger{25} [%X{module}] [%X{id}] [%X{number}] [%X{userId}] - %msg%n</pattern>                                                                                                                                                             
+    </encoder>                                                                                                                                                                                                                                
+  </appender>
+
+  <logger name="com.zaxxer" level="OFF"/>
+  <logger name="org.apache.commons" level="OFF"/>
+  <logger name="org.apache.poi" level="OFF"/>
+  <logger name="org.springframework" level="INFO"/>
+  <logger name="net.sf.jasperreports" level="INFO"/>
+
+  <!-- Configure so that it outputs to both console and log file -->                                                                                                                                                                          
+  <root level="DEBUG">
+    <appender-ref ref="FILE" />                                                                                                                                                                                                               
+    <appender-ref ref="STDOUT" />                                                                                                                                                                                                             
+  </root>                                                                                                                                                                                                                                     
+</configuration> 

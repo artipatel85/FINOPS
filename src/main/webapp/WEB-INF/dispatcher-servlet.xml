@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd"
+       xmlns:mvc="http://www.springframework.org/schema/mvc">
+
+
+    <context:component-scan base-package="com.finops.admin.controller"/>
+    <context:component-scan base-package="com.finops.admin.service"/>
+    <context:component-scan base-package="com.finops.admin.dao"/>
+    <context:component-scan base-package="com.finops.finance.dao"/>
+    <context:component-scan base-package="com.finops.finance.controller"/>
+    <context:component-scan base-package="com.finops.finance.service"/>
+    <context:component-scan base-package="com.finops.partner.dao"/>
+    <context:component-scan base-package="com.finops.partner.controller"/>
+    <context:component-scan base-package="com.finops.partner.service"/>
+    <context:component-scan base-package="com.finops.report.dao"/>
+    <context:component-scan base-package="com.finops.report.controller"/>
+    <context:component-scan base-package="com.finops.report.service"/>
+    <context:component-scan base-package="com.finops.freight.dao"/>
+    <context:component-scan base-package="com.finops.freight.controller"/>
+    <context:component-scan base-package="com.finops.freight.service"/>
+    <context:component-scan base-package="com.finops.dao"/>
+    <context:component-scan base-package="com.finops.controller"/>
+    <context:component-scan base-package="com.finops.service"/>
+    <context:component-scan base-package="com.finops.aop"/>
+
+    <mvc:annotation-driven />
+    <aop:aspectj-autoproxy />
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/"
+          p:suffix=".jsp" />
+
+    <bean id="myProperties" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>file:C:\Bhaumik\application.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP" />
+        <property name="connectionTestQuery" value="SELECT 1" />
+        <property name="dataSourceClassName" value="com.mysql.cj.jdbc.MysqlDataSource" />
+        <property name="maximumPoolSize" value="60" />
+        <property name="idleTimeout" value="30000" />
+
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="url">${spring.datasource.url}</prop>
+                <prop key="user">${spring.datasource.username}</prop>
+                <prop key="password">${spring.datasource.password}</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- Enable Annotation based Declarative Transaction Management -->
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="transactionManager" />
+
+    <!-- Creating TransactionManager Bean, since JDBC we are creating of type
+        DataSourceTransactionManager -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <cache:annotation-driven />
+
+    <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+        <property name="caches">
+            <set>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="signatures"/>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="partners"/>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="ports"/>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="units"/>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="sizes"/>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="finactProperties"/>
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="states"/>
+
+                <bean
+                        class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean"
+                        name="salesman"/>
+            </set>
+        </property>
+    </bean>
+
+<!--    <mvc:resources mapping="/finactcss/**" location="/finactcss/"/>-->
+<!--    <mvc:resources mapping="/finactjs/**" location="/finactjs/"/>-->
+<!--    -->
+    <mvc:interceptors>
+        <bean id="loginInterceptor" class="com.finops.interceptor.LoginInterceptor"/>
+        <bean id="userActivityInterceptor" class="com.finops.interceptor.UserActivityInterceptor"/>
+    </mvc:interceptors>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+</beans>
